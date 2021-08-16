@@ -23,9 +23,9 @@ public class MulticastEchoServer extends Thread {
                 socket.receive(packet);
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
-                //packet = new DatagramPacket(buf, buf.length, address, port);
+                //packet = new DatagramPacket(buf, buf.length, address, port);  // ??
                 String received = new String(packet.getData(), 0, packet.getLength());
-                System.out.println("Server received:" + received + " Length: " + packet.getLength());
+                System.out.println("Server received: " + received + " Length: " + packet.getLength());
                 socket.send(packet);
                 if (received.equals("end")) {
                     break;
@@ -33,11 +33,6 @@ public class MulticastEchoServer extends Thread {
             }
             socket.leaveGroup(group);
             socket.close();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-
-            }
             System.out.println("Thread ending");
         } catch (IOException e) {
             e.printStackTrace();

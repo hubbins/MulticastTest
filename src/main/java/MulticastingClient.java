@@ -16,17 +16,12 @@ public class MulticastingClient {
     }
 
     public int discoverServers(String msg) throws IOException {
-        copyMessageOnBuffer(msg);
-        multicastPacket();
-
+        multicastPacket(msg);
         return receivePackets();
     }
 
-    private void copyMessageOnBuffer(String msg) {
+    private void multicastPacket(String msg) throws IOException {
         buf = msg.getBytes();
-    }
-
-    private void multicastPacket() throws IOException {
         DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 4446);
         socket.send(packet);
     }
